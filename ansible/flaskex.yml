@@ -1,0 +1,35 @@
+# Flaskex deploy playbook
+---
+- hosts: "testhosts"
+  
+  vars_files:
+  - sudopass
+  
+  become: yes
+
+  tasks:
+  - name: "Установка python-pip"
+    apt:
+      name: "python-pip"
+      state: "present"
+      update_cache: true
+
+  - name: "Удаление существующей директории"
+    file:    
+      path: "/opt/flaskex"
+      state: "absent"
+
+  - name: "Копирование директории приложения"
+    copy:
+      src: "/home/devopstst/flaskex"
+      dest: "/opt/"
+      owner: "devopstst"
+      group: "devopstst"
+      mode: "0644"
+
+  - name: "Установка необходимых пакетов"
+    pip:
+      requirements: "/opt/flaskex/requirements.txt"
+      state: "present"
+
+...
