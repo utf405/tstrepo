@@ -1,1 +1,2 @@
+# Пароль для запуска Playbook flaskex.yaml с ключом --ask-vault-pass
 o9p0[-]=

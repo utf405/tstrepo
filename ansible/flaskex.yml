@@ -1,10 +1,13 @@
 # Flaskex deploy playbook
 ---
+# Используем группу хостов
 - hosts: "testhosts"
-  
+
+# Передаем переменную с паролем sudo, используя --ask-vault-pass   
   vars_files:
   - sudopass
-  
+
+# Выполняем все таски с правами суперпользователя  
   become: yes
 
   tasks:
