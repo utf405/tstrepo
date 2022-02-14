@@ -1,4 +1,11 @@
 # Flaskex deploy playbook
+# Запуск производится из директории ansible с конфиг-файлами
+# Репозитории flaskex и tstrepo должны находиться в одной директории
+#├── ($PWD)
+#|   ├── flaskex
+#|   └── tstrepo
+#|       └─ansible
+#|...................       
 ---
 # Используем группу хостов
 - hosts: "testhosts"
@@ -24,7 +31,7 @@
 
   - name: "Копирование директории приложения"
     copy:
-      src: "/home/devopstst/flaskex"
+      src: "../../flaskex"
       dest: "/opt/"
       owner: "devopstst"
       group: "devopstst"
@@ -50,7 +57,7 @@
 
   - name: "Копирование скрипта проверки"
     copy:
-      src: "/home/devopstst/tstrepo/ansible/checkrunning.sh"
+      src: "checkrunning.sh"
       dest: "/opt/scripts/checkrunning.sh"
       owner: "devopstst"
       group: "devopstst"
