@@ -35,4 +35,28 @@
       requirements: "/opt/flaskex/requirements.txt"
       state: "present"
 
+  - name: "Удаление существующего скрипта"
+    file:
+      path: "/opt/scripts/checkrunning.sh"
+      state: "absent"
+
+  - name: "Проверка существования директории /opt/scripts"
+    file:
+       path: "/opt/scripts" 
+       state: "directory"
+       recurse: yes
+       owner: "devopstst"
+       group: "devopstst"
+
+  - name: "Копирование скрипта проверки"
+    copy:
+      src: "/home/devopstst/tstrepo/ansible/checkrunning.sh"
+      dest: "/opt/scripts/checkrunning.sh"
+      owner: "devopstst"
+      group: "devopstst"
+      mode: "0755"
+
+  - name: "Запуск приложения, если не запущено"
+    shell: "nohup /opt/scripts/checkrunning.sh &"
+
 ...
